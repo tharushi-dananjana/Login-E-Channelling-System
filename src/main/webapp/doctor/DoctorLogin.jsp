@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +8,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Doctor Login</title>
+    <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -18,8 +20,14 @@
 
             <p class="text-gray-600">Please sign in to your dashboard</p>
         </div>
+        
+        <c:if test="${not empty error}">
+        	<div class="bg-red-500/20 text-red-400 border border-red-500 rounded-lg p-4 mb-6">
+        		<p>${error}<p>
+        	</div>
+        </c:if>
 
-        <form action="#" method="POST" class="space-y-6">
+        <form action="${pageContext.request.contextPath}/doctor/login" method="POST" class="space-y-6">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
                 <input type="email" placeholder="you@example.com"
