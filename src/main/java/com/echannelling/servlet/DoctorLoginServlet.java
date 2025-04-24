@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
-@WebServlet("/doctor/login")
+@WebServlet("/doctor/DoctorLogin")
 public class DoctorLoginServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -31,7 +31,7 @@ public class DoctorLoginServlet extends HttpServlet {
         }
 
         // Authenticate doctor
-        Doctor doctor = doctorService.getDoctorByEmail(password);
+        Doctor doctor = doctorService.getDoctorByEmail(identifier);
 
         if (doctor != null) {
             // Create a new session for the authenticated doctor
@@ -43,16 +43,16 @@ public class DoctorLoginServlet extends HttpServlet {
             session.setMaxInactiveInterval(30 * 60); // Session expires after 30 minutes
 
             // Redirect to the dashboard
-            response.sendRedirect(request.getContextPath() + "/admin");
+            response.sendRedirect(request.getContextPath() + "/doctor");
         } else {
             // Authentication failed, redirect back to login page with error
             request.setAttribute("error", "Invalid email/username or password");
-            request.getRequestDispatcher("/admin/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/doctor/login.jsp").forward(request, response);
         }
     }
 
-    private Doctor authenticateAdmin(String identifier, String password) {
-        for (Doctor doctor : doctorService.getAllUsers()) {
+    private Doctor authenticateDoctor(String identifier, String password) {
+        for (Doctor doctor : doctorService.getAllDoctors()) {
             if ((doctor.getEmail().equalsIgnoreCase(identifier) || doctor.getName().equalsIgnoreCase(identifier)) 
                     && doctor.getPassword().equals(password)) {
                 return doctor;
@@ -65,12 +65,12 @@ public class DoctorLoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Check for existing error message (e.g., from invalid login attempt)
         HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("admin") != null) {
+        if (session != null && session.getAttribute("doctor") != null) {
             // Redirect authenticated user to the dashboard
-            response.sendRedirect(request.getContextPath() + "/admin");
+            response.sendRedirect(request.getContextPath() + "/doctor");
         } else {
             // Redirect to login page
-            request.getRequestDispatcher("/admin/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/doctor/DoctorLogin.jsp").forward(request, response);
         }
     }
 }

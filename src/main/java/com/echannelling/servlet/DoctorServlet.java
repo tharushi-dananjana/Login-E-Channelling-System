@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-@WebServlet("/admin")
+@WebServlet("/doctor")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
         maxRequestSize = 1024 * 1024 * 50) // 50MB
@@ -52,18 +52,18 @@ public class DoctorServlet extends HttpServlet {
 	        String action = request.getParameter("action");
 
 	        HttpSession session = request.getSession(false);
-	        if (session == null || session.getAttribute("admin") == null) {
-	            response.sendRedirect(request.getContextPath() + "/admin/login");
+	        if (session == null || session.getAttribute("doctor") == null) {
+	            response.sendRedirect(request.getContextPath() + "/doctor/DoctorLogin");
 	            return;
 	        }
 
 	        // Add session variables to the request for use in JSP
 	        request.setAttribute("name", session.getAttribute("name"));
 	        request.setAttribute("email", session.getAttribute("email"));
-	        request.setAttribute("fileName", session.getAttribute("fileName"));
+	        request.setAttribute("filename", session.getAttribute("filename"));
 
 	        if (action == null) {
-	            request.setAttribute("doctors", doctorService.getAllUsers());
+	            request.setAttribute("doctors", doctorService.getAllDoctors());
 	            request.getRequestDispatcher("doctor/ManageDoctorindex.jsp").forward(request, response);
 	        } else if (action.equals("create")) {
 	            request.getRequestDispatcher("doctor/ManageDoctorCreate.jsp").forward(request, response);
@@ -79,11 +79,11 @@ public class DoctorServlet extends HttpServlet {
 	            request.getRequestDispatcher("doctor/ManageDoctorEdit.jsp").forward(request, response);
 	        } else if (action.equals("delete")) {
 	            int id = Integer.parseInt(request.getParameter("id"));
-	            doctorService.deleteUser(id);
+	            doctorService.delete(id);
 	            response.sendRedirect("doctor");
 	        } else if (action.equals("logout")) {
 	            session.invalidate();
-	            response.sendRedirect(request.getContextPath() + "/doctor/login");
+	            response.sendRedirect(request.getContextPath() + "/doctor/DoctorLogin");
 	        }
 	    }
 
@@ -95,7 +95,7 @@ public class DoctorServlet extends HttpServlet {
 	            String name = request.getParameter("name");
 	            String password = request.getParameter("password");
 	            String email = request.getParameter("email");
-	            Part filePart = request.getPart("fileName");
+	            Part filePart = request.getPart("filename");
 
 	            String picture = handlePhotoUpload(filePart, "doctor/picture");
 
@@ -116,9 +116,9 @@ public class DoctorServlet extends HttpServlet {
 	            String name = request.getParameter("name");
 	            String password = request.getParameter("password");
 	            String email = request.getParameter("email");
-	            Part filePart = request.getPart("fileName");
+	            Part filePart = request.getPart("filename");
 
-	            String picture = handlePhotoUpload(filePart, "doctor/pictures");
+	            String picture = handlePhotoUpload(filePart, "doctor/picture");
 
 	            Doctor doctor = new Doctor();
 	            doctor.setId(id);
@@ -131,14 +131,14 @@ public class DoctorServlet extends HttpServlet {
 	            }
 
 	            if (doctorService.updateUser(doctor)) {
-	                response.sendRedirect("admin");
+	                response.sendRedirect("doctor");
 	            } else {
 	                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	            }
 	        } else if (action.equals("delete")) {
 	            int id = Integer.parseInt(request.getParameter("id"));
-	            if (doctorService.deleteUser(id)) {
-	                response.sendRedirect("admin");
+	            if (doctorService.delete(id)) {
+	                response.sendRedirect("doctor");
 	            } else {
 	                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	            }
