@@ -46,6 +46,29 @@ public class DoctorService {
 	        }
 	        return null;
 	    }
+	    
+	 // Get Doctor by Email
+	    public Doctor getDoctorByEmail(String email) {
+	        String query = "SELECT * FROM doctorDash WHERE email = ?";
+	        try (Connection connection = DBConnection.getConnection();
+	             PreparedStatement stmt = connection.prepareStatement(query)) {
+	            stmt.setString(1, email);
+	            ResultSet rs = stmt.executeQuery();
+	            if (rs.next()) {
+	            	Doctor doctor = new Doctor();
+	            	doctor.setId(rs.getInt("id"));
+	            	doctor.setName(rs.getString("name"));
+	            	doctor.setEmail(rs.getString("email"));
+	            	doctor.setPassword(rs.getString("password"));
+	            	doctor.setFilename(rs.getString("fileName") != null ? rs.getString("fileName") : "default.png");
+	                return doctor;
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return null;
+	    }
+
 
 	    // Get All Doctor
 	    public List<Doctor> getAllUsers() {
