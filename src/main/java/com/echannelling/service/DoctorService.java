@@ -26,7 +26,7 @@ public class DoctorService {
 	    }
 
 	    // Get User by ID
-	    public Doctor getUser(int id) {
+	    public Doctor getDoctor(int id) {
 	        String query = "SELECT * FROM doctorDash WHERE id = ?";
 	        try (Connection connection = DBConnection.getConnection();
 	             PreparedStatement stmt = connection.prepareStatement(query)) {
