@@ -45,7 +45,7 @@ String picture = (String) session.getAttribute("filename");
 				<h1 class="text-xl font-semibold">Manage Record</h1>
 				<div class="flex items-center space-x-4">
 					<div class="flex items-center space-x-2">
-						<img src="doctor/assets/picture/<%= picture %>" alt="Admin Profile"
+						<img src="doctor/assets/picture/default.png" alt="Admin Profile"
 							class="w-11 h-11 rounded-full object-cover"> <span
 							class="text-gray-700"><%= name %></span>
 					</div>
@@ -85,7 +85,7 @@ String picture = (String) session.getAttribute("filename");
 							<c:forEach var="doctor" items="${doctors}">
 								<tr>
 									<td class="px-6 py-4 whitespace-nowrap">${doctor.id}</td>
-									<td class="border p-3 flex justify-center"><img src="doctor/assets/picture/${doctor.filename}" alt="Doctor Profile"
+									<td class="border p-3 flex justify-center"><img src="doctor/assets/picture/default.png" alt="Doctor Profile"
 							        class="w-8 h-8 rounded-full object-cover"></td>
 									<td class="px-6 py-4 whitespace-nowrap">${doctor.name}</td>
 									<td class="px-6 py-4 whitespace-nowrap">${doctor.email}</td>
