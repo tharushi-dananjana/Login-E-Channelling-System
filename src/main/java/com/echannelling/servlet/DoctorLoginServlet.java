@@ -47,7 +47,7 @@ public class DoctorLoginServlet extends HttpServlet {
         } else {
             // Authentication failed, redirect back to login page with error
             request.setAttribute("error", "Invalid email/username or password");
-            request.getRequestDispatcher("/doctor/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/doctor/DoctorLogin.jsp").forward(request, response);
         }
     }
 

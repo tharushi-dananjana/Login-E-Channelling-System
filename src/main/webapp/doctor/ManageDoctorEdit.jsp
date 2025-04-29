@@ -1,52 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <%@ include file="./partials/top.jsp"%>
+    
     <title>Edit Doctor</title>
-    <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
-    <script src="https://kit.fontawesome.com/9449774243.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-</head>
-
-<body class="bg-gray-100 text-gray-800 min-h-screen flex">
-
-    <!-- Sidebar -->
-    <aside class="w-64 bg-[#0f172a] text-white flex flex-col">
-        <div class="p-4 text-xl font-semibold">Doctor Dashboard</div>
-        <nav class="p-4 space-y-6"> <!-- changed from space-y-4 to space-y-6 -->
-            <a href="#" class="flex items-center space-x-2 hover:text-blue-400">
-                <i class="fas fa-tachometer-alt"></i><span>Dashboard</span>
-            </a>
-            <a href="#" class="flex items-center space-x-2 hover:text-blue-400">
-                <i class="fas fa-users"></i><span>Users</span>
-            </a>
-            <a href="#" class="flex items-center space-x-2 hover:text-blue-400">
-                <i class="fas fa-cog"></i><span>Settings</span>
-            </a>
-        </nav>
-    </aside>
-
-
-
-    <!-- Main content area -->
-    <div class="flex-1 flex flex-col min-h-screen overflow-auto">
-
-        <!-- Top Bar -->
-        <header class="flex justify-between items-center bg-white p-4 shadow-md">
-            <h1 class="text-xl font-semibold">Edit Record</h1>
-            <div class="flex items-center space-x-4">
-                <div class="flex items-center space-x-2">
-                    <img src="./asset/profile pic.jpg" alt="Admin Profile" class="w-11 h-11 rounded-full object-cover">
-                    <span class="text-gray-700">Admin Name</span>
-                </div>
-                <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Logout</button>
-            </div>
-        </header>
+    
+       <%@ include file="./partials/middle.jsp"%>
 
         <!-- Form Container -->
         <main class="flex-grow flex justify-center items-start p-8">
@@ -85,8 +44,4 @@
                 </form>
             </div>
         </main>
-    </div>
-
-</body>
-
-</html>
+ 
