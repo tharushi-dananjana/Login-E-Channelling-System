@@ -50,8 +50,9 @@
 								onclick="window.location.href='doctor?action=edit&id=${doctor.id}';">Edit</button>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap space-x-2">
-							<button onclick="showDeleteModal('${doctor.id}')"
-								class="text-red-400 hover:text-red-300">Delete</button>
+							<button onclick="showDeleteModal('${doctor.id}');"
+							class="text-red-400 hover:text-red-300" 
+							onclick="confirmAction('doctor ? action = delete & id=${doctor.id}')">Delete</button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -59,3 +60,16 @@
 		</table>
 	</div>
 </main>
+</div>
+</div>
+
+<script>
+	function confirmRedirect(url) {
+		if (confirm("Are you sure you want to proceed?")) {
+			window.location.href = url; // User clicked OK
+		}
+	}
+</script>
+
+</body>
+</html>

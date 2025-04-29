@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ include file="./partials/middle.jsp"%>
 <%@ include file="./partials/top.jsp"%>
 
 <title>Create Doctor</title>
-
-<%@ include file="./partials/middle.jsp"%>
 
 <!-- Form Container -->
 <main class="flex-grow flex justify-center items-start p-6">
@@ -46,4 +44,8 @@
 		</form>
 	</div>
 </main>
+</div>
 
+</body>
+
+</html>
