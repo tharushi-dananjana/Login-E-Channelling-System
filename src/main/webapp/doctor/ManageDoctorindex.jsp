@@ -12,8 +12,9 @@
 	<div class="flex justify-between items-center mb-4">
 		<h2 class="text-2xl font-bold">Record list</h2>
 		<button
-			class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">+
-			Create New Record</button>
+			class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" 
+			onclick="window.location.href='doctor?action=create';">
+			+ Create New Record</button>
 	</div>
 
 	<div class="overflow-x-auto bg-white rounded shadow">
@@ -47,12 +48,13 @@
 						<td class="px-6 py-4 whitespace-nowrap">${doctor.email}</td>
 						<td class="px-6 py-4 whitespace-nowrap space-x-2">
 							<button class="text-purple-400 hover:text-purple-300"
-								onclick="window.location.href='doctor?action=edit&id=${doctor.id}';">Edit</button>
+    							onclick="window.location.href='doctor?action=edit&id=${doctor.id}';">Edit</button>
+
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap space-x-2">
-							<button onclick="showDeleteModal('${doctor.id}');"
-							class="text-red-400 hover:text-red-300" 
-							onclick="confirmAction('doctor ? action = delete & id=${doctor.id}')">Delete</button>
+							<button 
+								class="text-red-400 hover:text-red-300" 
+								onclick="confirmRedirect('doctor?action=delete&id=${doctor.id}')">Delete</button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -65,11 +67,10 @@
 
 <script>
 	function confirmRedirect(url) {
-		if (confirm("Are you sure you want to proceed?")) {
-			window.location.href = url; // User clicked OK
+		if (confirm("Are you sure you want to delete this doctor?")) {
+			window.location.href = url;
 		}
 	}
 </script>
-
 </body>
 </html>
