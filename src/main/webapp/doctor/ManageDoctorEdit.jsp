@@ -10,41 +10,40 @@
 	<div class="bg-white p-6 rounded shadow-md w-full max-w-xl">
 		<h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">Edit
 			New Record</h2>
-		<form action="#" method="POST" class="space-y-6">
+		<form action="doctor" method="POST" class="space-y-6" enctype="multipart/form-data">
+			<!-- Hidden Inputs for Action and Doctor ID -->
+        	<input type="hidden" name="action" value="update">
+        	<input type="hidden" name="id" value="${doctor.id}">
+        	
 			<div>
-				<label class="block text-sm font-medium text-gray-700 mb-1">Full
-					Name</label> <input type="text"
-					class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+				<label class="block text-sm font-medium text-gray-700 mb-1">Name</label> 
+				<input type="text" name="username" value="${doctor.name}" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500" />
 			</div>
+			
 			<div>
-				<label class="block text-sm font-medium text-gray-700 mb-1">Email
-					Address</label> <input type="email"
-					class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+				<label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label> 
+				<input type="email" name="email" value="${doctor.email}" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500" />
 			</div>
+			
 			<div>
-				<label class="block text-sm font-medium text-gray-700 mb-1">Phone
-					Number</label> <input type="tel"
-					class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+				<label class="block text-sm font-medium text-gray-700 mb-1">Password</label> 
+				<input type="tel" name="password" value="${doctor.password}" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500" />
 			</div>
-			<div>
-				<label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-				<select
-					class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
-					<option value="active">Active</option>
-					<option value="inactive">Inactive</option>
-				</select>
+			
+			<!-- File Input for Picture -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Profile Picture</label>
+                <div class="relative w-full">
+                    <input type="file" id="filename" value="${doctor.filename}" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                        name="filename" accept="image/*">
+                </div>
+            </div>
+			
+			<div class="flex justify-end space-x-3 pt-4">
+				<button type="reset" class="bg-red-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-300">Cancel</button>
+				<button type="submit" class="bg-blue-700 text-white px-6 py-2 rounded hover:bg-blue-300" onclick="window.location.href='doctor';">Save Record</button>
 			</div>
-			<div class="flex justify-end space-x-4 pt-4">
-				<button type="reset"
-					class="bg-red-500 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">Clear</button>
-				<button type="submit"
-					class="bg-blue-900 text-white px-6 py-2 rounded hover:bg-blue-300">Create</button>
-			</div>
+			
 		</form>
 	</div>
 </main>
-</div>
-
-</body>
-
-</html>

@@ -118,7 +118,9 @@ public class DoctorServlet extends HttpServlet {
 	            String email = request.getParameter("email");
 	            Part filePart = request.getPart("filename");
 
-	            String picture = handlePhotoUpload(filePart, "doctor/assets/picture");
+	            String fileName = handlePhotoUpload(filePart, "assets/picture");
+
+
 
 	            Doctor doctor = new Doctor();
 	            doctor.setId(id);
@@ -126,8 +128,8 @@ public class DoctorServlet extends HttpServlet {
 	            doctor.setPassword(password);
 	            doctor.setEmail(email);
 
-	            if (picture != null) {
-	            	doctor.setFilename(picture);
+	            if (fileName != null) {
+	            	doctor.setFilename(fileName);
 	            }
 
 	            if (doctorService.updateUser(doctor)) {

@@ -5,6 +5,7 @@
 <%
 String name = (String) session.getAttribute("name");
 String picture = (String) session.getAttribute("filename");
+
 %>
 
 <!DOCTYPE html>

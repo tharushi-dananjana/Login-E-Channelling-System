@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<script src="https://kit.fontawesome.com/9449774243.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/9449774243.js" crossorigin="anonymous"></script>
 <script src="https://cdn.tailwindcss.com"></script>
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
 
-</head>
 <body class="bg-gray-100 text-gray-800">
 
-	<!-- Sidebar -->
 	<div class="flex min-h-screen">
 		<aside class="w-64 bg-[#0f172a] text-white flex flex-col">
 			<div class="p-4 text-xl font-semibold">Doctor Dashboard</div>
@@ -33,11 +31,15 @@
 				<h1 class="text-xl font-semibold">Manage Record</h1>
 				<div class="flex items-center space-x-4">
 					<div class="flex items-center space-x-2">
-						<img src="doctor/assets/picture/default.png" alt="Doctor Profile"
-							class="w-11 h-11 rounded-full object-cover"> <span
-							class="text-gray-700">${sessionScope.name}</span>
+					
+						<img src="doctor/assets/picture/default.png" class="w-11 h-11 rounded-full object-cover">
+
+ 
+							
+							<span class="text-gray-700">${sessionScope.name}</span>
 					</div>
 					<button
-						class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Logout</button>
+						class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+						onclick="window.location.href='doctor?action=logout';">Logout</button>
 				</div>
 			</header>
