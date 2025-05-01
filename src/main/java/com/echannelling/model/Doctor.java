@@ -20,7 +20,7 @@ public class Doctor {
 		return password;
 	}
 	public String getFilename() {
-		return getName();
+		return filename;
 	}
 	
 	public void setId(int id) {

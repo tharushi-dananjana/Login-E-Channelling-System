@@ -32,7 +32,7 @@
 				<div class="flex items-center space-x-4">
 					<div class="flex items-center space-x-2">
 					
-						<img src="doctor/assets/picture/default.png" class="w-11 h-11 rounded-full object-cover">
+						<img src="doctor/assets/picture/${doctor.filename}" class="w-11 h-11 rounded-full object-cover">
 
  
 							

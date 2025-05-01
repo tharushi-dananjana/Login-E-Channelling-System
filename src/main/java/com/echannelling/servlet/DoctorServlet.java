@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 
 @WebServlet("/doctor")
@@ -50,7 +51,8 @@ public class DoctorServlet extends HttpServlet {
 	    @Override
 	    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	        String action = request.getParameter("action");
-
+	        
+	     
 	        HttpSession session = request.getSession(false);
 	        if (session == null || session.getAttribute("doctor") == null) {
 	            response.sendRedirect(request.getContextPath() + "/doctor/DoctorLogin");
