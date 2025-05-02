@@ -3,6 +3,7 @@
 
 <%@ include file="./partials/top.jsp"%>
 
+<!-- Title -->
 <title>Doctor Dashboard</title>
 
 <%@ include file="./partials/middle.jsp"%>
@@ -34,6 +35,7 @@
 				<c:forEach var="doctor" items="${doctors}">
 					<tr>
 						<td class="px-6 py-4 whitespace-nowrap">${doctor.id}</td>
+						
 						<td class="border p-3 flex justify-center">
 						<img src="${pageContext.request.contextPath}/doctor/assets/picture/${doctor.filename}"
 							alt="Doctor Profile" class="w-8 h-8 rounded-full object-cover"></td>
