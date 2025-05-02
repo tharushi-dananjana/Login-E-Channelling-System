@@ -20,14 +20,15 @@
 
             <p class="text-gray-600">Please sign in to your dashboard</p>
         </div>
-        
-        <c:if test="${not empty error}">
-        	<div class="bg-red-500/20 text-red-400 border border-red-500 rounded-lg p-4 mb-6">
-        		<p>${error}<p>
-        	</div>
+
+	   <c:if test="${not empty error}">
+            <div class="bg-red-500/20 text-red-400 border border-red-500 rounded-lg p-4 mb-6">
+                <p>${error}</p>
+            </div>
         </c:if>
 
-        <form action="${pageContext.request.contextPath}/doctor/DoctorLogin" method="POST" class="space-y-6">
+
+		<form action="${pageContext.request.contextPath}/doctor/DoctorLogin" method="POST" class="space-y-6">
         
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
@@ -54,7 +55,7 @@
         </form>
 
         <p class="text-center text-sm text-gray-600 mt-6"> Don’t have an account?
-            <a href="#" class="text-blue-600 hover:underline">Sign up</a>
+            <a href="${pageContext.request.contextPath}/doctor/DoctorRegister.jsp" class="text-blue-600 hover:underline">Sign up</a>
         </p>
         
     </div>
