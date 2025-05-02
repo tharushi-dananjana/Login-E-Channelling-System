@@ -41,6 +41,7 @@
 							alt="Doctor Profile" class="w-8 h-8 rounded-full object-cover"></td>
 						<td class="px-6 py-4 whitespace-nowrap">${doctor.name}</td>
 						<td class="px-6 py-4 whitespace-nowrap">${doctor.email}</td>
+						<!-- Add button -->
 						<td class="px-6 py-4 whitespace-nowrap space-x-2">
 							<button class="text-purple-400 hover:text-purple-300"
     							onclick="window.location.href='doctor?action=edit&id=${doctor.id}';">Edit</button>
