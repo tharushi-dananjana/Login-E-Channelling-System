@@ -1,40 +1,100 @@
 package com.echannelling.service;
 
-import com.echannelling.model.Doctor;
+import com.echannelling.model.Doctor; // Rename to Doctor if needed
+import com.echannelling.util.DBConnection;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterService {
 
-    private final String jdbcURL = "jdbc:mysql://localhost:3306/echannelling_db";
-    private final String jdbcUsername = "root";
-    private final String jdbcPassword = "IT23688568"; 
+	    // Create Doctor
+	    public boolean createUser(Doctor doctor) {
+	        String query = "INSERT INTO doctorList (name, email, password, filename, specialization, phone, licenseActive) "
+	        		+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+	        try (Connection connection = DBConnection.getConnection();
+	             PreparedStatement stmt = connection.prepareStatement(query)) {
+	            stmt.setString(1, doctor.getName());
+	            stmt.setString(2, doctor.getEmail());
+	            stmt.setString(3, doctor.getPassword());
+	            stmt.setString(4, doctor.getFilename());
+	            stmt.setString(5, doctor.getSpecialization());
+	            stmt.setString(6, doctor.getPhone());
+	            stmt.setBoolean(7, doctor.isLicenseActive());
+	            return stmt.executeUpdate() > 0;
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return false;
+	    }
 
-    private static final String INSERT_DOCTOR_SQL =
-            "INSERT INTO doctors (name, specialization, email, phone, license_active) VALUES (?, ?, ?, ?, ?)";
+	    // Get Doctor by ID
+	    public Doctor getDoctor(int id) {
+	        String query = "SELECT * FROM doctorList WHERE id = ?";
+	        try (Connection connection = DBConnection.getConnection();
+	             PreparedStatement stmt = connection.prepareStatement(query)) {
+	              stmt.setInt(1, id);
+	            ResultSet rs = stmt.executeQuery();
+	            if (rs.next()) {
+	            	Doctor doctor = new Doctor();
+	            	doctor.setId(rs.getInt("id"));
+	            	doctor.setName(rs.getString("name"));
+	            	doctor.setEmail(rs.getString("email"));
+	            	doctor.setPassword(rs.getString("password"));
+	            	doctor.setFilename(rs.getString("filename"));
+	                return doctor;
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return null;
+	    }
+	    
+	 // Get Doctor by Email
+	    public Doctor getDoctorByEmail(String email) {
+	        String query = "SELECT * FROM doctorList WHERE email = ?";
+	        try (Connection connection = DBConnection.getConnection();
+	             PreparedStatement stmt = connection.prepareStatement(query)) {
+	            stmt.setString(1, email);
+	            ResultSet rs = stmt.executeQuery();
+	            if (rs.next()) {
+	            	Doctor doctor = new Doctor();
+	            	doctor.setId(rs.getInt("id"));
+	            	doctor.setName(rs.getString("name"));
+	            	doctor.setEmail(rs.getString("email"));
+	            	doctor.setPassword(rs.getString("password"));
+	            	doctor.setFilename(rs.getString("filename") != null ? rs.getString("filename") : "default.png");
+	                return doctor;
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return null;
+	    }
+	 
+	    // Get All Doctors
+	    public List<Doctor> getAllDoctors() {
+	        List<Doctor> doctors = new ArrayList<>();
+	        String query = "SELECT * FROM doctorList";
+	        try (Connection connection = DBConnection.getConnection();
+	             Statement stmt = connection.createStatement()) {
+	            ResultSet rs = stmt.executeQuery(query);
+	            while (rs.next()) {
+	            	Doctor doctor = new Doctor();
+	                doctor.setId(rs.getInt("id"));
+	                doctor.setName(rs.getString("name"));
+	                doctor.setEmail(rs.getString("email"));
+	                doctor.setPassword(rs.getString("password"));
+	                doctor.setFilename(rs.getString("filename"));
+	                doctors.add(doctor);
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return doctors;
+	    }
 
-    public boolean saveDoctor(Doctor doctor) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-            PreparedStatement statement = connection.prepareStatement(INSERT_DOCTOR_SQL);
-            statement.setString(1, doctor.getName());
-            statement.setString(2, doctor.getSpecialization());
-            statement.setString(3, doctor.getEmail());
-            statement.setString(4, doctor.getPhone());
-            statement.setBoolean(5, doctor.isLicenseActive());
+	}
 
-            int rowsInserted = statement.executeUpdate();
 
-            statement.close();
-            connection.close();
-
-            return rowsInserted > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-}

@@ -39,7 +39,7 @@
             </div>
 			
 			<div class="flex justify-end space-x-3 pt-4">
-				<button type="reset" class="bg-red-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-300">Cancel</button>
+				<button type="reset" class="bg-red-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-300" onclick="window.location.href='doctor';">Cancel</button>
 				<button type="submit" class="bg-blue-700 text-white px-6 py-2 rounded hover:bg-blue-300" onclick="window.location.href='doctor';">Save Record</button>
 			</div>
 		</form>

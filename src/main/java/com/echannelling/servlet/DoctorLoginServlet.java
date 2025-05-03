@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-
 @WebServlet("/doctor/DoctorLogin")
 public class DoctorLoginServlet extends HttpServlet {
 
