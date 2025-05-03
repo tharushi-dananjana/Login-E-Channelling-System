@@ -37,19 +37,6 @@ public class DoctorRegisterServlet extends HttpServlet {
             filePart.write(uploadPath + File.separator + filename);
         }
 
-        // Create doctor object
-        Doctor newDoctor = new Doctor();
-        newDoctor.setName(name);
-        newDoctor.setSpecialization(specialization);
-        newDoctor.setEmail(email);
-        newDoctor.setPassword(password);
-        newDoctor.setFilename(filename);
-        newDoctor.setPhone(phone);
-        newDoctor.setLicenseActive(licenseActive);
-        
-        // Save to database
-        boolean isCreated = registerService.createUser(newDoctor);
-
      // Check if session already exists
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("doctor") != null) {

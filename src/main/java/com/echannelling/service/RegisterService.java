@@ -11,15 +11,15 @@ public class RegisterService {
 
 	    // Create Doctor
 	    public boolean createUser(Doctor doctor) {
-	        String query = "INSERT INTO doctorList (name, email, password, filename, specialization, phone, licenseActive) "
+	        String query = "INSERT INTO doctorList (name, specialization, email, password, filename, , phone, licenseActive) "
 	        		+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 	        try (Connection connection = DBConnection.getConnection();
 	             PreparedStatement stmt = connection.prepareStatement(query)) {
 	            stmt.setString(1, doctor.getName());
+	            stmt.setString(5, doctor.getSpecialization());
 	            stmt.setString(2, doctor.getEmail());
 	            stmt.setString(3, doctor.getPassword());
-	            stmt.setString(4, doctor.getFilename());
-	            stmt.setString(5, doctor.getSpecialization());
+	            stmt.setString(4, doctor.getFilename());	            
 	            stmt.setString(6, doctor.getPhone());
 	            stmt.setBoolean(7, doctor.isLicenseActive());
 	            return stmt.executeUpdate() > 0;
@@ -40,9 +40,12 @@ public class RegisterService {
 	            	Doctor doctor = new Doctor();
 	            	doctor.setId(rs.getInt("id"));
 	            	doctor.setName(rs.getString("name"));
+	            	doctor.setSpecialization(rs.getString("specialization"));
 	            	doctor.setEmail(rs.getString("email"));
 	            	doctor.setPassword(rs.getString("password"));
 	            	doctor.setFilename(rs.getString("filename"));
+	            	doctor.setPhone(rs.getString("phone"));
+	            	doctor.setLicenseActive(rs.getBoolean("licenseActive"));
 	                return doctor;
 	            }
 	        } catch (SQLException e) {
@@ -62,9 +65,12 @@ public class RegisterService {
 	            	Doctor doctor = new Doctor();
 	            	doctor.setId(rs.getInt("id"));
 	            	doctor.setName(rs.getString("name"));
+	            	doctor.setSpecialization(rs.getString("specialization"));
 	            	doctor.setEmail(rs.getString("email"));
 	            	doctor.setPassword(rs.getString("password"));
 	            	doctor.setFilename(rs.getString("filename") != null ? rs.getString("filename") : "default.png");
+	            	doctor.setPhone(rs.getString("phone"));
+	            	doctor.setLicenseActive(rs.getBoolean("licenseActive"));
 	                return doctor;
 	            }
 	        } catch (SQLException e) {
@@ -84,9 +90,12 @@ public class RegisterService {
 	            	Doctor doctor = new Doctor();
 	                doctor.setId(rs.getInt("id"));
 	                doctor.setName(rs.getString("name"));
+	                doctor.setSpecialization(rs.getString("specialization"));
 	                doctor.setEmail(rs.getString("email"));
 	                doctor.setPassword(rs.getString("password"));
 	                doctor.setFilename(rs.getString("filename"));
+	                doctor.setPhone(rs.getString("phone"));
+	            	doctor.setLicenseActive(rs.getBoolean("licenseActive"));
 	                doctors.add(doctor);
 	            }
 	        } catch (SQLException e) {
@@ -94,7 +103,38 @@ public class RegisterService {
 	        }
 	        return doctors;
 	    }
+	 // Update Doctor
+	    public boolean updateUser(Doctor doctor) {
+	        String query = "UPDATE doctorDash SET name = ?, email = ?, password = ?, filename = ? WHERE id = ?";
+	        try (Connection connection = DBConnection.getConnection();
+	             PreparedStatement stmt = connection.prepareStatement(query)) {
+	            stmt.setString(1, doctor.getName());
+	            stmt.setString(1, doctor.getSpecialization());
+	            stmt.setString(2, doctor.getEmail());
+	            stmt.setString(3, doctor.getPassword());
+	            stmt.setString(4, doctor.getFilename());
+	            stmt.setString(4, doctor.getPhone());
+	            stmt.setBoolean(4, doctor.isLicenseActive());
+	            stmt.setInt(5, doctor.getId());
+	            return stmt.executeUpdate() > 0;
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return false;
+	    }
 
+	    // Delete Doctor
+	    public boolean delete(int id) {
+	        String query = "DELETE FROM doctorDash WHERE id = ?";
+	        try (Connection connection = DBConnection.getConnection();
+	             PreparedStatement stmt = connection.prepareStatement(query)) {
+	            stmt.setInt(1, id);
+	            return stmt.executeUpdate() > 0;
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return false;
+	    }
 	}
 
 

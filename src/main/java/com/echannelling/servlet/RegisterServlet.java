@@ -56,74 +56,55 @@ public class RegisterServlet extends HttpServlet {
 	    	String action = request.getParameter("action");
 	    	
 	    	
-	    	// Get form parameters
-	        String name = request.getParameter("name");
-	        String specialization = request.getParameter("specialization");
-	        String email = request.getParameter("email");
-	        String password = request.getParameter("password");
-	        String phone = request.getParameter("phone");
-	        boolean licenseActive = "yes".equalsIgnoreCase(request.getParameter("licenseActive"));
+	    	 if (action.equals("create")) {
+		            String name = request.getParameter("name");
+		            String password = request.getParameter("password");
+		            String email = request.getParameter("email");
+		            String specialization = request.getParameter("specialization");
+		            String phone = request.getParameter("phone");
+		            Part filePart = request.getPart("filename");
 
-	        Part filePart = request.getPart("filename");
-	        String filename = (filePart != null && filePart.getSize() > 0)
-	                ? handlePhotoUpload(filePart, "doctor/assets/picture")
-	                : "default.jpg";
+		            String fileName = handlePhotoUpload(filePart, "doctor/assets/picture");
 
-	        // Create new Doctor object
-	        Doctor newDoctor = new Doctor();
-	        newDoctor.setName(name);
-	        newDoctor.setSpecialization(specialization);
-	        newDoctor.setEmail(email);
-	        newDoctor.setPassword(password);
-	        newDoctor.setPhone(phone);
-	        newDoctor.setFilename(filename);
-	        newDoctor.setLicenseActive(licenseActive);
+		            Doctor doctor = new Doctor();
+		            doctor.setName(name);
+		            doctor.setPassword(password);
+		            doctor.setEmail(email);
+		            doctor.setSpecialization(specialization);
+		            doctor.setPhone(phone);
+		            doctor.setFilename(fileName);
+		           
 
-	        boolean success = registerService.createUser(newDoctor);
+		            if (registerService.createUser(doctor)) {
+		                response.sendRedirect("doctor");
+		            } else {
+		                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		            }
+		        } else if (action.equals("update")) {
+		            int id = Integer.parseInt(request.getParameter("id"));
+		            String name = request.getParameter("name");
+		            String password = request.getParameter("password");
+		            String email = request.getParameter("email");
+		            Part filePart = request.getPart("filename");
+		            String specialization = request.getParameter("specialization");
+		            String phone = request.getParameter("phone");
+		            String fileName = handlePhotoUpload(filePart, "assets/picture");
+		            boolean licenseActive = Boolean.parseBoolean(request.getParameter("licenseActive"));
+		           
+		            Doctor doctor = new Doctor();
+		            doctor.setId(id);
+		            doctor.setName(name);
+		            doctor.setPassword(password);
+		            doctor.setEmail(email);
+		            doctor.setSpecialization(specialization);
+		            doctor.setPhone(phone);
+		            doctor.setLicenseActive(licenseActive);
+		            doctor.setLicenseActive(licenseActive);
 
-	        // Redirect to the list view
-	        if (success) {
-	            response.sendRedirect(request.getContextPath() + "/t_doctor");
-	        } else {
-	            request.setAttribute("error", "Registration failed. Try again.");
-	            request.getRequestDispatcher("/t_doctor/DoctorRegister.jsp").forward(request, response);
-	        }
-	    }
-	    
+		            if (fileName != null) {
+		            	doctor.setFilename(fileName);
+		            }
 
-	    @Override
-	    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	        String action = request.getParameter("action");
-	        
-	     
-	        HttpSession session = request.getSession(false);
-	        if (session == null || session.getAttribute("t_doctor") == null) {
-	            response.sendRedirect(request.getContextPath() + "/t_doctor/DoctorRegister");
-	            return;
-	        }
-
-	        // Add session variables to the request for use in JSP
-	        request.setAttribute("name", session.getAttribute("name"));
-	        request.setAttribute("specialization", session.getAttribute("specialization"));
-	        request.setAttribute("email", session.getAttribute("email"));
-	        request.setAttribute("filename", session.getAttribute("filename"));
-	        request.setAttribute("phone", session.getAttribute("phone"));
-	        request.setAttribute("licenseActive", session.getAttribute("licenseActive"));
-	        
-
-	        if (action == null) {
-	            request.setAttribute("doctors", registerService.getAllDoctors());
-	            request.getRequestDispatcher("t_doctor/Register_List.jsp").forward(request, response);
-	        } else if (action.equals("view")) {
-	            int ID = Integer.parseInt(request.getParameter("id"));
-	            Doctor doctor = registerService.getDoctor(ID);
-	            request.setAttribute("doctor", doctor);
-	            request.getRequestDispatcher("t_doctor/Register_List.jsp").forward(request, response);
-	        }   
-	        
-	    }
-}
-	    
-	    
-
-
+		        }
+		    }
+		}
