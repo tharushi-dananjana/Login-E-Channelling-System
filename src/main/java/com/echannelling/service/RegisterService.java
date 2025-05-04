@@ -1,6 +1,6 @@
 package com.echannelling.service;
 
-import com.echannelling.model.Doctor; // Rename to Doctor if needed
+import com.echannelling.model.Register; // Rename to Doctor if needed
 import com.echannelling.util.DBConnection;
 
 import java.sql.*;
@@ -9,19 +9,15 @@ import java.util.List;
 
 public class RegisterService {
 
-	    // Create Doctor
-	    public boolean createUser(Doctor doctor) {
-	        String query = "INSERT INTO doctorList (name, specialization, email, password, filename, , phone, licenseActive) "
-	        		+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+	    // Create Register
+	    public boolean createUser(Register register) {
+	        String query = "INSERT INTO registerDash (name, email, password, filename) VALUES (?, ?, ?, ?)";
 	        try (Connection connection = DBConnection.getConnection();
 	             PreparedStatement stmt = connection.prepareStatement(query)) {
-	            stmt.setString(1, doctor.getName());
-	            stmt.setString(5, doctor.getSpecialization());
-	            stmt.setString(2, doctor.getEmail());
-	            stmt.setString(3, doctor.getPassword());
-	            stmt.setString(4, doctor.getFilename());	            
-	            stmt.setString(6, doctor.getPhone());
-	            stmt.setBoolean(7, doctor.isLicenseActive());
+	            stmt.setString(1, register.getName());
+	            stmt.setString(2, register.getEmail());
+	            stmt.setString(3, register.getPassword());
+	            
 	            return stmt.executeUpdate() > 0;
 	        } catch (SQLException e) {
 	            e.printStackTrace();
@@ -30,23 +26,20 @@ public class RegisterService {
 	    }
 
 	    // Get Doctor by ID
-	    public Doctor getDoctor(int id) {
-	        String query = "SELECT * FROM doctorList WHERE id = ?";
+	    public Register getRegister(int id) {
+	        String query = "SELECT * FROM registerDash WHERE id = ?";
 	        try (Connection connection = DBConnection.getConnection();
 	             PreparedStatement stmt = connection.prepareStatement(query)) {
 	              stmt.setInt(1, id);
 	            ResultSet rs = stmt.executeQuery();
 	            if (rs.next()) {
-	            	Doctor doctor = new Doctor();
-	            	doctor.setId(rs.getInt("id"));
-	            	doctor.setName(rs.getString("name"));
-	            	doctor.setSpecialization(rs.getString("specialization"));
-	            	doctor.setEmail(rs.getString("email"));
-	            	doctor.setPassword(rs.getString("password"));
-	            	doctor.setFilename(rs.getString("filename"));
-	            	doctor.setPhone(rs.getString("phone"));
-	            	doctor.setLicenseActive(rs.getBoolean("licenseActive"));
-	                return doctor;
+	            	Register register = new Register();
+	            	register.setId(rs.getInt("id"));
+	            	register.setName(rs.getString("name"));
+	            	register.setEmail(rs.getString("email"));
+	            	register.setPassword(rs.getString("password"));
+	            	
+	                return register;
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
@@ -54,78 +47,74 @@ public class RegisterService {
 	        return null;
 	    }
 	    
-	 // Get Doctor by Email
-	    public Doctor getDoctorByEmail(String email) {
-	        String query = "SELECT * FROM doctorList WHERE email = ?";
+	 // Get Register by Email
+	    public Register getRegisterByEmail(String email) {
+	        String query = "SELECT * FROM registerDash WHERE email = ?";
 	        try (Connection connection = DBConnection.getConnection();
 	             PreparedStatement stmt = connection.prepareStatement(query)) {
 	            stmt.setString(1, email);
 	            ResultSet rs = stmt.executeQuery();
 	            if (rs.next()) {
-	            	Doctor doctor = new Doctor();
-	            	doctor.setId(rs.getInt("id"));
-	            	doctor.setName(rs.getString("name"));
-	            	doctor.setSpecialization(rs.getString("specialization"));
-	            	doctor.setEmail(rs.getString("email"));
-	            	doctor.setPassword(rs.getString("password"));
-	            	doctor.setFilename(rs.getString("filename") != null ? rs.getString("filename") : "default.png");
-	            	doctor.setPhone(rs.getString("phone"));
-	            	doctor.setLicenseActive(rs.getBoolean("licenseActive"));
-	                return doctor;
+	            	Register register = new Register();
+	            	register.setId(rs.getInt("id"));
+	            	register.setName(rs.getString("name"));
+	            	register.setEmail(rs.getString("email"));
+	            	register.setPassword(rs.getString("password"));
+	            	
+	                return register;
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 	        return null;
 	    }
-	 
+	    
+	    
+
+
 	    // Get All Doctors
-	    public List<Doctor> getAllDoctors() {
-	        List<Doctor> doctors = new ArrayList<>();
-	        String query = "SELECT * FROM doctorList";
+	    public List<Register> getAllRegisters() {
+	        List<Register> registers = new ArrayList<>();
+	        String query = "SELECT * FROM registerDash";
 	        try (Connection connection = DBConnection.getConnection();
 	             Statement stmt = connection.createStatement()) {
 	            ResultSet rs = stmt.executeQuery(query);
 	            while (rs.next()) {
-	            	Doctor doctor = new Doctor();
-	                doctor.setId(rs.getInt("id"));
-	                doctor.setName(rs.getString("name"));
-	                doctor.setSpecialization(rs.getString("specialization"));
-	                doctor.setEmail(rs.getString("email"));
-	                doctor.setPassword(rs.getString("password"));
-	                doctor.setFilename(rs.getString("filename"));
-	                doctor.setPhone(rs.getString("phone"));
-	            	doctor.setLicenseActive(rs.getBoolean("licenseActive"));
-	                doctors.add(doctor);
+	            	Register register = new Register();
+	            	register.setId(rs.getInt("id"));
+	            	register.setName(rs.getString("name"));
+	            	register.setEmail(rs.getString("email"));
+	            	register.setPassword(rs.getString("password"));
+	                
+	            	registers.add(register);
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
-	        return doctors;
+	        return registers;
 	    }
-	 // Update Doctor
-	    public boolean updateUser(Doctor doctor) {
-	        String query = "UPDATE doctorDash SET name = ?, email = ?, password = ?, filename = ? WHERE id = ?";
+
+	    // Update Register
+	    public boolean updateUser(Register register) {
+	        String query = "UPDATE registerDash SET name = ?, email = ?, password = ? WHERE id = ?";
 	        try (Connection connection = DBConnection.getConnection();
 	             PreparedStatement stmt = connection.prepareStatement(query)) {
-	            stmt.setString(1, doctor.getName());
-	            stmt.setString(1, doctor.getSpecialization());
-	            stmt.setString(2, doctor.getEmail());
-	            stmt.setString(3, doctor.getPassword());
-	            stmt.setString(4, doctor.getFilename());
-	            stmt.setString(4, doctor.getPhone());
-	            stmt.setBoolean(4, doctor.isLicenseActive());
-	            stmt.setInt(5, doctor.getId());
+	            stmt.setString(1, register.getName());
+	            stmt.setString(2, register.getEmail());
+	            stmt.setString(3, register.getPassword());
+	            stmt.setInt(5, register.getId());
 	            return stmt.executeUpdate() > 0;
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 	        return false;
 	    }
+	    
+	    
 
-	    // Delete Doctor
+	    // Delete Register
 	    public boolean delete(int id) {
-	        String query = "DELETE FROM doctorDash WHERE id = ?";
+	        String query = "DELETE FROM registerDash WHERE id = ?";
 	        try (Connection connection = DBConnection.getConnection();
 	             PreparedStatement stmt = connection.prepareStatement(query)) {
 	            stmt.setInt(1, id);

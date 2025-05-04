@@ -1,25 +1,23 @@
 package com.echannelling.servlet;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
+
+import com.echannelling.model.Register;
+import com.echannelling.service.DoctorService;
+import com.echannelling.service.RegisterService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
-import com.echannelling.model.Doctor;
-import com.echannelling.service.RegisterService;
-
-
-@WebServlet("/t_doctor")
+@WebServlet("/register")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
         maxRequestSize = 1024 * 1024 * 50) // 50MB
+
 
 public class RegisterServlet extends HttpServlet {
 	    private static final long serialVersionUID = 1L;
@@ -31,80 +29,97 @@ public class RegisterServlet extends HttpServlet {
 	        registerService = new RegisterService();
 	    }
 
-	    private String handlePhotoUpload(Part filePart, String uploadDirectory) throws IOException {
-	        if (filePart != null && filePart.getSize() > 0) {
-	            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-	            String uploadPath = getServletContext().getRealPath("") + File.separator + uploadDirectory;
-
-	            // Ensure directory exists
-	            File uploadDir = new File(uploadPath);
-	            if (!uploadDir.exists()) {
-	                uploadDir.mkdirs();
-	            }
-
-	            // Save the file to the specified directory
-	            String filePath = uploadPath + File.separator + fileName;
-	            filePart.write(filePath);
-
-	            return fileName;
+	    @Override
+	    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	        String action = request.getParameter("action");
+	        
+	     
+	        HttpSession session = request.getSession(false);
+	        if (session == null || session.getAttribute("register") == null) {
+	            response.sendRedirect(request.getContextPath() + "/register/DoctorRegister");
+	            return;
 	        }
-	        return null;
+
+	        // Add session variables to the request for use in JSP
+	        request.setAttribute("name", session.getAttribute("name"));
+	        request.setAttribute("email", session.getAttribute("email"));
+	       
+
+	        if (action == null) {
+	            request.setAttribute("registers", registerService.getAllRegisters());
+	            request.getRequestDispatcher("register/RegisterIndex.jsp").forward(request, response);
+	        }  
+	        else if (action.equals("view")) {
+	            int id = Integer.parseInt(request.getParameter("id"));
+	            Register register = registerService.getRegister(id);
+	            request.setAttribute("register", register);
+	            request.getRequestDispatcher("register/RegisterIndex.jsp").forward(request, response);
+	        } 
+	        else if (action.equals("edit")) {
+	            int id = Integer.parseInt(request.getParameter("id"));
+	            Register register = registerService.getRegister(id);
+	            request.setAttribute("register", register);
+	            request.getRequestDispatcher("register/ManageDoctorEdit.jsp").forward(request, response);
+	        } 
+	        else if (action.equals("delete")) {
+	            int id = Integer.parseInt(request.getParameter("id"));
+	            registerService.delete(id);
+	            response.sendRedirect("register");
+	        } 
 	    }
-	    
+
 	    @Override
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    	String action = request.getParameter("action");
-	    	
-	    	
-	    	 if (action.equals("create")) {
-		            String name = request.getParameter("name");
-		            String password = request.getParameter("password");
-		            String email = request.getParameter("email");
-		            String specialization = request.getParameter("specialization");
-		            String phone = request.getParameter("phone");
-		            Part filePart = request.getPart("filename");
+	        String action = request.getParameter("action");
 
-		            String fileName = handlePhotoUpload(filePart, "doctor/assets/picture");
+	        if (action.equals("create")) {
+	            String name = request.getParameter("name");
+	            String password = request.getParameter("password");
+	            String email = request.getParameter("email");
+	           
 
-		            Doctor doctor = new Doctor();
-		            doctor.setName(name);
-		            doctor.setPassword(password);
-		            doctor.setEmail(email);
-		            doctor.setSpecialization(specialization);
-		            doctor.setPhone(phone);
-		            doctor.setFilename(fileName);
-		           
+	            
 
-		            if (registerService.createUser(doctor)) {
-		                response.sendRedirect("doctor");
-		            } else {
-		                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-		            }
-		        } else if (action.equals("update")) {
-		            int id = Integer.parseInt(request.getParameter("id"));
-		            String name = request.getParameter("name");
-		            String password = request.getParameter("password");
-		            String email = request.getParameter("email");
-		            Part filePart = request.getPart("filename");
-		            String specialization = request.getParameter("specialization");
-		            String phone = request.getParameter("phone");
-		            String fileName = handlePhotoUpload(filePart, "assets/picture");
-		            boolean licenseActive = Boolean.parseBoolean(request.getParameter("licenseActive"));
-		           
-		            Doctor doctor = new Doctor();
-		            doctor.setId(id);
-		            doctor.setName(name);
-		            doctor.setPassword(password);
-		            doctor.setEmail(email);
-		            doctor.setSpecialization(specialization);
-		            doctor.setPhone(phone);
-		            doctor.setLicenseActive(licenseActive);
-		            doctor.setLicenseActive(licenseActive);
+	            Register register = new Register();
+	            register.setName(name);
+	            register.setPassword(password);
+	            register.setEmail(email);
+	           
+	           
 
-		            if (fileName != null) {
-		            	doctor.setFilename(fileName);
-		            }
+	            if (registerService.createUser(register)) {
+	                response.sendRedirect("register");
+	            } else {
+	                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	            }
+	        } else if (action.equals("update")) {
+	            int id = Integer.parseInt(request.getParameter("id"));
+	            String name = request.getParameter("name");
+	            String password = request.getParameter("password");
+	            String email = request.getParameter("email");
+	           
 
-		        }
-		    }
-		}
+	            Register register = new Register();
+	            register.setId(id);
+	            register.setName(name);
+	            register.setPassword(password);
+	            register.setEmail(email);
+
+	            
+
+	            if (registerService.updateUser(register)) {
+	                response.sendRedirect("register");
+	            } else {
+	                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	            }
+	        } else if (action.equals("delete")) {
+	            int id = Integer.parseInt(request.getParameter("id"));
+	            if (registerService.delete(id)) {
+	                response.sendRedirect("register");
+	            } else {
+	                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	            }
+	        }
+	    }
+	}
+

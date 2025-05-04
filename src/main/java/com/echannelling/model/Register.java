@@ -1,6 +1,6 @@
 package com.echannelling.model;
 
-public class Doctor {
+public class Register {
 	private int id;
 	private String name;
 	private String email;
