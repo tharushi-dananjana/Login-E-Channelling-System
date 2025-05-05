@@ -26,7 +26,7 @@
         </c:if>
 
 
-		<form action="${pageContext.request.contextPath}/register/DoctorRegister" method="POST" class="space-y-6" enctype="multipart/form-data">
+		<form action="#" method="POST" class="space-y-6" enctype="multipart/form-data">
 
 			<div>
 				<label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
@@ -46,11 +46,22 @@
 					class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
 			</div>
 
-			
+			<!-- File Input for Picture -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Profile Picture</label>
+                <div class="relative w-full">
+                    <input type="file" id="filename" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                        name="filename" accept="image/*">
+                </div>
+            </div>
 
 			<button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold">Register</button>
-
+			
         </form>
+        
+        <p class="text-center text-sm text-gray-600 mt-6">Is registration complete ?
+        	<a href="${pageContext.request.contextPath}/doctor/DoctorRegister.jsp" class="text-blue-600 hover:underline">Login</a>
+        </p>
         
     </div>
 </body>
