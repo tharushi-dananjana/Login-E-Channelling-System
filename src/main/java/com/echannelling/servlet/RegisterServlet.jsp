@@ -50,9 +50,9 @@ public class DoctorServlet extends HttpServlet {
             boolean isInserted = RegisterService.insertdata(name, email, password, fileName);
 
             if (isInserted) {
-                response.sendRedirect("success.jsp"); // Redirect to success page
+                response.sendRedirect("success.jsp"); //Redirect to success page
             } else {
-                response.sendRedirect("error.jsp"); // Redirect to error page
+                response.sendRedirect("error.jsp"); //Redirect to error page
             }
         }
     }
