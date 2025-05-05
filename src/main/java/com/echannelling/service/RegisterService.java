@@ -18,11 +18,11 @@ public class RegisterService {
 		isSuccess = false;
 		
 		try {
-			//DB CONNECTION CALL
+				//DB CONNECTION CALL
 			con=DBConnection.getConnection();
 			stmt=con.createStatement();
 			
-			//SQL QUERY			
+				//SQL QUERY			
 			String sql = "INSERT INTO doctorDash VALUES(0,'" + name + "', '" +email +"', '" +password + "','" + fileName + "')";
 			System.out.println("Executing SQL : " +sql);
 			int rs = stmt.executeUpdate(sql);
