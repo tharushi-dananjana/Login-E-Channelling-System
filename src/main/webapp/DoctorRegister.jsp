@@ -1,17 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 
-<%@ include file="./partials/middle.jsp"%>
-<%@ include file="./partials/top.jsp"%>
+<script src="https://kit.fontawesome.com/9449774243.js" crossorigin="anonymous"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
 
-    <title>Doctor Register</title>
-    
-
+</head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
 <!-- Form Container -->
 <main class="flex-grow flex justify-center items-start p-6">
 	<div class="bg-white p-5 rounded shadow-md w-full max-w-md">
-		<h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">Create Recods</h2>
+		<h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">Doctor Register</h2>
 
 		<form action="doctor" method="POST" class="space-y-3" enctype="multipart/form-data">
 			
@@ -50,4 +54,4 @@
 	</div>
 </main>
 </body>
-
+</html>

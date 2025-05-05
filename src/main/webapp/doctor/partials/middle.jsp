@@ -12,11 +12,11 @@
 			<div class="p-4 text-xl font-semibold">Doctor Dashboard</div>
 			<nav class="p-4 space-y-6">
 				<!-- changed from space-y-4 to space-y-6 -->
-				<a href="#" class="flex items-center space-x-2 hover:text-blue-400">
+				<a href="" class="flex items-center space-x-2 hover:text-blue-400">
 					<i class="fas fa-tachometer-alt"></i><span>Manage Doctors</span>
 				</a> 
 					
-				<a href="#" class="flex items-center space-x-2 hover:text-blue-400">
+				<a href="" class="flex items-center space-x-2 hover:text-blue-400">
 					<i class="fas fa-users"></i><span>Manage Users</span>
 				</a> 
 					
