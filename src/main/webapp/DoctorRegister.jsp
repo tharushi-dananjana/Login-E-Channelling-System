@@ -41,10 +41,9 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Profile Picture</label>
                 <div class="relative w-full">
                     <input type="file" id="filename" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                        name="filename" accept="image/*">
+                     name="filename" accept="image/*">
                 </div>
-            </div>
-			
+            </div>			
 			<div class="flex justify-end space-x-3 pt-4">
 				<button type="reset" class="bg-red-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-300">Cancel</button>
 				<button type="submit" class="bg-blue-700 text-white px-6 py-2 rounded hover:bg-blue-300" onclick="window.location.href='doctor';">Create Record</button>
