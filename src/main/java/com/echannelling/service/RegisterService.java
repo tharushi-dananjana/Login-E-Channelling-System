@@ -7,10 +7,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DoctorService implements IDoctorService {
+public class RegisterService {
 
 	    // Create Doctor
-		@Override
 	    public boolean createUser(Doctor doctor) {
 	        String query = "INSERT INTO doctorDash (name, email, password, filename) VALUES (?, ?, ?, ?)";
 	        try (Connection connection = DBConnection.getConnection();
@@ -27,7 +26,6 @@ public class DoctorService implements IDoctorService {
 	    }
 
 	    // Get Doctor by ID
-		@Override
 	    public Doctor getDoctor(int id) {
 	        String query = "SELECT * FROM doctorDash WHERE id = ?";
 	        try (Connection connection = DBConnection.getConnection();
@@ -50,7 +48,6 @@ public class DoctorService implements IDoctorService {
 	    }
 	    
 	 // Get Doctor by Email
-		@Override
 	    public Doctor getDoctorByEmail(String email) {
 	        String query = "SELECT * FROM doctorDash WHERE email = ?";
 	        try (Connection connection = DBConnection.getConnection();
@@ -73,7 +70,6 @@ public class DoctorService implements IDoctorService {
 	    }
 
 	    // Get All Doctors
-		@Override
 	    public List<Doctor> getAllDoctors() {
 	        List<Doctor> doctors = new ArrayList<>();
 	        String query = "SELECT * FROM doctorDash";
@@ -95,37 +91,10 @@ public class DoctorService implements IDoctorService {
 	        return doctors;
 	    }
 
-	    // Update Doctor
-		@Override
-	    public boolean updateUser(Doctor doctor) {
-	        String query = "UPDATE doctorDash SET name = ?, email = ?, password = ?, filename = ? WHERE id = ?";
-	        try (Connection connection = DBConnection.getConnection();
-	             PreparedStatement stmt = connection.prepareStatement(query)) {
-	            stmt.setString(1, doctor.getName());
-	            stmt.setString(2, doctor.getEmail());
-	            stmt.setString(3, doctor.getPassword());
-	            stmt.setString(4, doctor.getFilename());
-	            stmt.setInt(5, doctor.getId());
-	            return stmt.executeUpdate() > 0;
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	        return false;
-	    }
 	    
-	    // Delete Doctor
-		@Override
-	    public boolean delete(int id) {
-	        String query = "DELETE FROM doctorDash WHERE id = ?";
-	        try (Connection connection = DBConnection.getConnection();
-	             PreparedStatement stmt = connection.prepareStatement(query)) {
-	            stmt.setInt(1, id);
-	            return stmt.executeUpdate() > 0;
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	        return false;
-	    }
+	    
+
+	   
 	}
 
 

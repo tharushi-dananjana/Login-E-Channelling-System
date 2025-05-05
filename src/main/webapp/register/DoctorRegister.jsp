@@ -26,7 +26,7 @@
         </c:if>
 
 
-		<form action="#" method="POST" class="space-y-6" enctype="multipart/form-data">
+		<form action="${pageContext.request.contextPath}/register/DoctorRegister" method="POST" class="space-y-6" enctype="multipart/form-data">
 
 			<div>
 				<label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
@@ -60,7 +60,7 @@
         </form>
         
         <p class="text-center text-sm text-gray-600 mt-6">Is registration complete ?
-        	<a href="${pageContext.request.contextPath}/doctor/DoctorRegister.jsp" class="text-blue-600 hover:underline">Login</a>
+        	<a href="${pageContext.request.contextPath}/register/DoctorRegister.jsp" class="text-blue-600 hover:underline">Login</a>
         </p>
         
     </div>

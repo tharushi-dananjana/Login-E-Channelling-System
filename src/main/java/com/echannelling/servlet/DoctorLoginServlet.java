@@ -19,20 +19,28 @@ public class DoctorLoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String identifier = request.getParameter("email"); // Can be email
-        String password = request.getParameter("password");
-
-        // Check if session already exists
-        HttpSession session = request.getSession(false);
+    	HttpSession session = request.getSession(false);  // Check if session already exists
         if (session != null && session.getAttribute("doctor") != null) {
             response.sendRedirect(request.getContextPath() + "/doctor");
             return;
         }
+        
+        String identifier = request.getParameter("email"); // Can be email
+        String password = request.getParameter("password");
+        
+     // Basic validation
+        if (identifier == null || identifier.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+            request.setAttribute("error", "Email and Password are required");
+            request.getRequestDispatcher("/doctor/DoctorLogin.jsp").forward(request, response);
+            return;
+        }
+        
+    	
 
         // Authenticate doctor
         Doctor doctor = doctorService.getDoctorByEmail(identifier);
 
-        if (doctor != null) {
+        if (doctor != null && doctor.getPassword().equals(password)) {
             // Create a new session for the authenticated doctor
             session = request.getSession(true);
             session.setAttribute("doctor", doctor);

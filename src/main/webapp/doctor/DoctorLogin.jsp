@@ -10,6 +10,29 @@
     <title>Doctor Login</title>
     <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        function validateLoginForm() {
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (email === "" || password === "") {
+                alert(" Need the Email and Password ");
+                return false;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Email format is incorrect");
+                return false;
+            }
+
+            return true;
+        }
+
+      
+    </script>
+    
 </head>
 
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
