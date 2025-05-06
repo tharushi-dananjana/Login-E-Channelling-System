@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Register</title>
 
 <script src="https://kit.fontawesome.com/9449774243.js" crossorigin="anonymous"></script>
 <script src="https://cdn.tailwindcss.com"></script>
@@ -17,7 +17,7 @@
 	<div class="bg-white p-5 rounded shadow-md w-full max-w-md">
 		<h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">Doctor Register</h2>
 
-		<form action="doctor" method="POST" class="space-y-3" enctype="multipart/form-data">
+		<form action="${pageContext.request.contextPath}/doctorRegister?action=create" method="POST" class="space-y-3" enctype="multipart/form-data">
 			
 			<!-- Hidden input for action -->
 			<input type="hidden" name="action" value="create">

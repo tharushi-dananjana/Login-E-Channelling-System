@@ -1,4 +1,4 @@
-package com.echannelling.service;
+package REGISTER;
 import com.echannelling.model.Doctor;
 
 import java.sql.Connection;

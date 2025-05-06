@@ -78,7 +78,7 @@
         </form>
 
         <p class="text-center text-sm text-gray-600 mt-6"> Don’t have an account?
-            <a href="${pageContext.request.contextPath}/doctor/DoctorRegister.jsp" class="text-blue-600 hover:underline">Sign up</a>
+            <a href="${pageContext.request.contextPath}/DoctorRegister.jsp" class="text-blue-600 hover:underline">Sign up</a>
         </p>
         
     </div>

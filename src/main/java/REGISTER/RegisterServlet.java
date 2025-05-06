@@ -1,4 +1,4 @@
-package com.echannelling.servlet;
+package REGISTER;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.echannelling.service.RegisterService;
+import REGISTER.RegisterService;
 
-@WebServlet("/doctor")
+@WebServlet("/doctorRegister")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,  // 2MB
                  maxFileSize = 1024 * 1024 * 10,       // 10MB
                  maxRequestSize = 1024 * 1024 * 50)    // 50MB
                  
-public class DoctorServlet extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     // Define your upload path
@@ -50,7 +50,7 @@ public class DoctorServlet extends HttpServlet {
             boolean isInserted = RegisterService.insertdata(name, email, password, fileName);
 
             if (isInserted) {
-                response.sendRedirect("success.jsp"); //Redirect to success page
+                response.sendRedirect("./doctor/DoctorLogin.jsp"); //Redirect to success page
             } else {
                 response.sendRedirect("error.jsp"); //Redirect to error page
             }
