@@ -29,6 +29,8 @@
 				<input type="tel" name="password" value="${doctor.password}" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500" />
 			</div>
 			
+			
+			
 			<!-- File Input for Picture -->
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Profile Picture</label>

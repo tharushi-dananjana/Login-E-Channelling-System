@@ -18,6 +18,7 @@ public class DoctorService implements IDoctorService {
 	            stmt.setString(1, doctor.getName());
 	            stmt.setString(2, doctor.getEmail());
 	            stmt.setString(3, doctor.getPassword());
+	            
 	            stmt.setString(4, doctor.getFilename());
 	            return stmt.executeUpdate() > 0;
 	        } catch (SQLException e) {
@@ -40,6 +41,7 @@ public class DoctorService implements IDoctorService {
 	            	doctor.setName(rs.getString("name"));
 	            	doctor.setEmail(rs.getString("email"));
 	            	doctor.setPassword(rs.getString("password"));
+	            	
 	            	doctor.setFilename(rs.getString("filename"));
 	                return doctor;
 	            }
@@ -63,6 +65,7 @@ public class DoctorService implements IDoctorService {
 	            	doctor.setName(rs.getString("name"));
 	            	doctor.setEmail(rs.getString("email"));
 	            	doctor.setPassword(rs.getString("password"));
+	            	
 	            	doctor.setFilename(rs.getString("filename") != null ? rs.getString("filename") : "default.png");
 	                return doctor;
 	            }
@@ -86,6 +89,7 @@ public class DoctorService implements IDoctorService {
 	                doctor.setName(rs.getString("name"));
 	                doctor.setEmail(rs.getString("email"));
 	                doctor.setPassword(rs.getString("password"));
+	                
 	                doctor.setFilename(rs.getString("filename"));
 	                doctors.add(doctor);
 	            }
@@ -104,6 +108,7 @@ public class DoctorService implements IDoctorService {
 	            stmt.setString(1, doctor.getName());
 	            stmt.setString(2, doctor.getEmail());
 	            stmt.setString(3, doctor.getPassword());
+	            
 	            stmt.setString(4, doctor.getFilename());
 	            stmt.setInt(5, doctor.getId());
 	            return stmt.executeUpdate() > 0;

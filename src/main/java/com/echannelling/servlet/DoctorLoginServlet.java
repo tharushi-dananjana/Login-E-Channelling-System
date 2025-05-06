@@ -46,6 +46,7 @@ public class DoctorLoginServlet extends HttpServlet {
             session.setAttribute("doctor", doctor);
             session.setAttribute("name", doctor.getName());
             session.setAttribute("email", doctor.getEmail());
+            
             session.setAttribute("filename", doctor.getFilename());
             session.setMaxInactiveInterval(30 * 60); // Session expires after 30 minutes
 

@@ -62,6 +62,7 @@ public class DoctorServlet extends HttpServlet {
 	        // Add session variables to the request for use in JSP
 	        request.setAttribute("name", session.getAttribute("name"));
 	        request.setAttribute("email", session.getAttribute("email"));
+	        
 	        request.setAttribute("filename", session.getAttribute("filename"));
 
 	        if (action == null) {
@@ -96,15 +97,14 @@ public class DoctorServlet extends HttpServlet {
 	        if (action.equals("create")) {
 	            String name = request.getParameter("name");
 	            String password = request.getParameter("password");
-	            String email = request.getParameter("email");
+	            String email = request.getParameter("email");	            
 	            Part filePart = request.getPart("filename");
-
 	            String fileName = handlePhotoUpload(filePart, "doctor/assets/picture");
 
 	            Doctor doctor = new Doctor();
 	            doctor.setName(name);
 	            doctor.setPassword(password);
-	            doctor.setEmail(email);
+	            doctor.setEmail(email);	           
 	            doctor.setFilename(fileName);
 	           
 
@@ -117,18 +117,15 @@ public class DoctorServlet extends HttpServlet {
 	            int id = Integer.parseInt(request.getParameter("id"));
 	            String name = request.getParameter("name");
 	            String password = request.getParameter("password");
-	            String email = request.getParameter("email");
+	            String email = request.getParameter("email");	            
 	            Part filePart = request.getPart("filename");
-
 	            String fileName = handlePhotoUpload(filePart, "assets/picture");
-
-
 
 	            Doctor doctor = new Doctor();
 	            doctor.setId(id);
 	            doctor.setName(name);
 	            doctor.setPassword(password);
-	            doctor.setEmail(email);
+	            doctor.setEmail(email);	            
 
 	            if (fileName != null) {
 	            	doctor.setFilename(fileName);

@@ -26,7 +26,8 @@
 					<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Picture</th>
 					<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
 					<th class="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-					<th class="px-20 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
+					
+					<th class="px-8 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
 				</tr>
 			</thead>
 
@@ -35,22 +36,31 @@
 				<c:forEach var="doctor" items="${doctors}">
 					<tr>
 						<td class="px-6 py-4 whitespace-nowrap">${doctor.id}</td>
-						
-						<td class="border p-3 flex justify-center">
-						<img src="${pageContext.request.contextPath}/doctor/assets/picture/${doctor.filename}"
-							alt="Doctor Profile" class="w-8 h-8 rounded-full object-cover"></td>
+
+						<td class="border p-3 flex justify-center"><img
+							src="${pageContext.request.contextPath}/doctor/assets/picture/${doctor.filename}"
+							alt="Doctor Profile" class="w-10 h-10 rounded-full object-cover">
+						</td>
+
 						<td class="px-6 py-4 whitespace-nowrap">${doctor.name}</td>
 						<td class="px-6 py-4 whitespace-nowrap">${doctor.email}</td>
-						<!-- Add button -->
-						<td class="px-6 py-4 whitespace-nowrap space-x-2">
-							<button class="text-purple-400 hover:text-purple-300"
-    							onclick="window.location.href='doctor?action=edit&id=${doctor.id}';">Edit</button>
+						
+
+						<td class="px-8 py-4 whitespace-nowrap">
+							<div class="flex justify-end space-x-2">
+								<button
+									class="bg-purple-500 text-white px-3 py-1 rounded hover:bg-purple-600 transition"
+									onclick="window.location.href='doctor?action=edit&id=${doctor.id}';">
+									Edit</button>
+								<button
+									class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
+									onclick="confirmRedirect('doctor?action=delete&id=${doctor.id}')">
+									Delete</button>
+							</div>
 						</td>
-						<td class="px-6 py-4 whitespace-nowrap space-x-2">
-							<button class="text-red-400 hover:text-red-300" 
-								onclick="confirmRedirect('doctor?action=delete&id=${doctor.id}')">Delete</button>
-						</td>
+
 					</tr>
+
 				</c:forEach>
 			</tbody>
 		</table>

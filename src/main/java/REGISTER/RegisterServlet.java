@@ -31,6 +31,7 @@ public class RegisterServlet extends HttpServlet {
             String name = request.getParameter("name");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
+            
 
             // Handle file upload
             Part filePart = request.getPart("filename");
