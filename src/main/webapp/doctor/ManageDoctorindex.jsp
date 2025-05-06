@@ -16,6 +16,16 @@
 			onclick="window.location.href='doctor?action=create';">+ Create New Record</button>
 	</div>
 
+	<!-- ✅ Search Form -->
+	
+		<input type="text" id="searchInput" placeholder="Search Doctor by Name"
+			class="border px-3 py-2 rounded mr-2" />
+		<button type="submit"
+			class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Search</button>
+	
+	
+	
+
 	<div class="overflow-x-auto bg-white rounded shadow">
 		<table class="min-w-full divide-y divide-gray-200">
 
@@ -64,9 +74,39 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		
 	</div>
 </main>
 
+<script>
+function filterTable() {
+    var input = document.getElementById("searchInput");
+    var filter = input.value.toUpperCase();
+    var table = document.querySelector("table");
+    var tr = table.getElementsByTagName("tr");
+
+    for (var i = 1; i < tr.length; i++) { // skip header
+        var td = tr[i].getElementsByTagName("td");
+        var rowMatches = false;
+
+        for (var j = 0; j < td.length; j++) {
+            if (td[j]) {
+                var txtvalue = td[j].textContent || td[j].innerText;
+                if (txtvalue.toUpperCase().indexOf(filter) > -1) {
+                    rowMatches = true;
+                    break;
+                }
+            }
+        }
+
+        tr[i].style.display = rowMatches ? "" : "none";
+    }
+}
+
+
+document.getElementById("searchInput").addEventListener("input" , filterTable);
+	
+</script>
 
 <script>
 	function confirmRedirect(url) {

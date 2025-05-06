@@ -98,7 +98,8 @@ public class DoctorService implements IDoctorService {
 	        }
 	        return doctors;
 	    }
-
+		
+		
 	    // Update Doctor
 		@Override
 	    public boolean updateUser(Doctor doctor) {
