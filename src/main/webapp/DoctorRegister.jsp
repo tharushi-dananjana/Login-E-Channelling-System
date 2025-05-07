@@ -17,7 +17,8 @@
 	<div class="bg-white p-5 rounded shadow-md w-full max-w-md">
 		<h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">Doctor Register</h2>
 
-		<form action="${pageContext.request.contextPath}/doctorRegister?action=create" method="POST" class="space-y-3" enctype="multipart/form-data">
+		<form action="${pageContext.request.contextPath}/doctorRegister?action=create" 
+		method="POST" class="space-y-3" enctype="multipart/form-data" onsubmit="return validateForm(event)">
 			
 			<!-- Hidden input for action -->
 			<input type="hidden" name="action" value="create">
@@ -53,5 +54,50 @@
 		</form>
 	</div>
 </main>
+
+<!-- JavaScript Form Validation -->
+<script>
+    function validateForm(event) {
+        const form = event.target;
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const password = form.password.value.trim();
+        const fileInput = form.filename;
+
+        if (!name) {
+            alert("Enter your Name");
+            form.name.focus();
+            event.preventDefault();
+            return false;
+        }
+
+        if (!email || !email.includes("@")) {
+            alert("Please enter a complete and correct email address.");
+            form.email.focus();
+            event.preventDefault();
+            return false;
+        }
+
+        if (!password || password.length < 6) {
+            alert("The password must be at least 6 characters long.");
+            form.password.focus();
+            event.preventDefault();
+            return false;
+        }
+
+        if (fileInput && fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const allowedTypes = ["image/jpeg", "image/png"];
+            if (!allowedTypes.includes(file.type)) {
+                alert("please uplode .jpg OR .png file");
+                event.preventDefault();
+                return false;
+            }
+        }
+
+        return true;
+    }
+</script>
+
 </body>
 </html>
