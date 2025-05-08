@@ -1,3 +1,4 @@
+
 package com.echannelling.servlet;
 
 import com.echannelling.model.Doctor;
@@ -187,4 +188,3 @@ public class DoctorServlet extends HttpServlet {
 	        }
 	    }
 	}
-

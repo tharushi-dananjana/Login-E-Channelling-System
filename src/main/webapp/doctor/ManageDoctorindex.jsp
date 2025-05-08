@@ -153,4 +153,3 @@ document.getElementById("searchInput").addEventListener("input" , filterTable);
 		}
 	}
 </script>
-

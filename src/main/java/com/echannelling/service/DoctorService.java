@@ -133,5 +133,3 @@ public class DoctorService implements IDoctorService {
 	        return false;
 	    }
 	}
-
-
