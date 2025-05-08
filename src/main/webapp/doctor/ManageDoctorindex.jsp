@@ -6,13 +6,14 @@
 <!-- Title -->
 <title>Doctor Dashboard</title>
 
+
 <%@ include file="./partials/middle.jsp"%>
 
 <!-- Page Content -->
 <main class="p-6">
 	<div class="flex justify-between items-center mb-4">
 		<h2 class="text-2xl font-bold">Record list</h2>
-		<button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" 
+		<button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-400" 
 			onclick="window.location.href='doctor?action=create';">+ Create New Record</button>
 	</div>
 
@@ -21,7 +22,7 @@
 		<input type="text" id="searchInput" placeholder="Search Doctor by Name"
 			class="border px-3 py-2 rounded mr-2" />
 		<button type="submit"
-			class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Search</button>
+			class="bg-green-600 text-white px-4 py-2 rounded hover:bg-blue-400">Search</button>
 	
 	
 	
@@ -60,12 +61,14 @@
 							<div class="flex justify-end space-x-2">
 								<button
 									class="bg-purple-500 text-white px-3 py-1 rounded hover:bg-purple-600 transition"
-									onclick="window.location.href='doctor?action=edit&id=${doctor.id}';">
+									onclick="promptPasswordAndRedirect(${doctor.id});">
 									Edit</button>
+
 								<button
-									class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
-									onclick="confirmRedirect('doctor?action=delete&id=${doctor.id}')">
+									class="bg-red-500 text-white px-3 py-1 rounded hover:bg-yellow-400 transition"
+									onclick="promptPasswordAndDelete(${doctor.id});">
 									Delete</button>
+
 							</div>
 						</td>
 
@@ -77,6 +80,44 @@
 		
 	</div>
 </main>
+
+<script>
+function promptPasswordAndRedirect(doctorId) {
+    const password = prompt("Please enter your password to edit this record:");
+    if (password === null) return; // User clicked Cancel
+
+    fetch('doctor?action=verify&id=' + doctorId + '&password=' + encodeURIComponent(password))
+        .then(response => {
+            if (response.ok) {
+                window.location.href = 'doctor?action=edit&id=' + doctorId;
+            } else if (response.status === 401) {
+                alert("Password incorrect. You are not allowed to edit this record.");
+            } else {
+                alert("An error occurred.");
+            }
+        });
+}
+</script>
+
+<script>
+function promptPasswordAndDelete(doctorId) {
+    const password = prompt("Please enter your password to delete this record:");
+    if (password === null) return; // Cancel clicked
+
+    fetch('doctor?action=verifyAndDelete&id=' + doctorId + '&password=' + encodeURIComponent(password))
+        .then(response => {
+            if (response.ok) {
+                alert("Record deleted successfully.");
+                location.reload(); // Reload the page to reflect deletion
+            } else if (response.status === 401) {
+                alert("Incorrect password. Deletion not allowed.");
+            } else {
+                alert("An error occurred while deleting.");
+            }
+        });
+}
+</script>
+
 
 <script>
 function filterTable() {
@@ -102,10 +143,7 @@ function filterTable() {
         tr[i].style.display = rowMatches ? "" : "none";
     }
 }
-
-
-document.getElementById("searchInput").addEventListener("input" , filterTable);
-	
+document.getElementById("searchInput").addEventListener("input" , filterTable);	
 </script>
 
 <script>
@@ -115,3 +153,4 @@ document.getElementById("searchInput").addEventListener("input" , filterTable);
 		}
 	}
 </script>
+

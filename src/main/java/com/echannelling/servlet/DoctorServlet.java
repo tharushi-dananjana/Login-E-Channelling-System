@@ -94,11 +94,37 @@ public class DoctorServlet extends HttpServlet {
 	            request.setAttribute("doctor", doctor);
 	            request.getRequestDispatcher("doctor/ManageDoctorEdit.jsp").forward(request, response);
 	        } 
+	        else if (action.equals("verify")) {
+	            int id = Integer.parseInt(request.getParameter("id"));
+	            String password = request.getParameter("password");
+
+	            Doctor doctor = doctorService.getDoctor(id);
+	            if (doctor != null && doctor.getPassword().equals(password)) {
+	                response.setStatus(HttpServletResponse.SC_OK); // 200 OK
+	            } else {
+	                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+	            }
+	        }
+
+
 	        else if (action.equals("delete")) {
 	            int id = Integer.parseInt(request.getParameter("id"));
 	            doctorService.delete(id);
 	            response.sendRedirect("doctor");
 	        } 
+	        else if ("verifyAndDelete".equals(action)) {
+	            int id = Integer.parseInt(request.getParameter("id"));
+	            String password = request.getParameter("password");
+
+	            Doctor doctor = doctorService.getDoctor(id);
+	            if (doctor != null && doctor.getPassword().equals(password)) {
+	                doctorService.delete(id);
+	                response.setStatus(HttpServletResponse.SC_OK); // 200 OK - Deleted
+	            } else {
+	                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+	            }
+	        }
+
 	        else if (action.equals("logout")) {
 	            session.invalidate();
 	            response.sendRedirect(request.getContextPath() + "/doctor/DoctorLogin");
