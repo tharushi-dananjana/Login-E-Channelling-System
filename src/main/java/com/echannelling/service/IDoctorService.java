@@ -1,7 +1,7 @@
 package com.echannelling.service;
+import java.util.List;
 
 import com.echannelling.model.Doctor;
-import java.util.List;
 
 public interface IDoctorService {
     boolean createUser(Doctor doctor);

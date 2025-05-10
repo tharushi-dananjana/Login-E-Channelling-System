@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ include file="./partials/header.jsp"%>
 
 <%@ include file="./partials/top.jsp"%>
 
@@ -9,11 +10,12 @@
 
 <%@ include file="./partials/middle.jsp"%>
 
+
 <!-- Page Content -->
 <main class="p-6">
 	<div class="flex justify-between items-center mb-4">
 		<h2 class="text-2xl font-bold">Record list</h2>
-		<button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-400" 
+		<button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-600" 
 			onclick="window.location.href='doctor?action=create';">+ Create New Record</button>
 	</div>
 
@@ -22,7 +24,7 @@
 		<input type="text" id="searchInput" placeholder="Search Doctor by Name"
 			class="border px-3 py-2 rounded mr-2" />
 		<button type="submit"
-			class="bg-green-600 text-white px-4 py-2 rounded hover:bg-blue-400">Search</button>
+			class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-600">Search</button>
 	
 	
 	
@@ -33,7 +35,7 @@
 			<!-- Table Header -->
 			<thead class="bg-gray-50">
 				<tr>
-					<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
+					<th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">ID</th>
 					<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Picture</th>
 					<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
 					<th class="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
@@ -60,12 +62,12 @@
 						<td class="px-8 py-4 whitespace-nowrap">
 							<div class="flex justify-end space-x-2">
 								<button
-									class="bg-purple-500 text-white px-3 py-1 rounded hover:bg-purple-600 transition"
+									class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-600 transition"
 									onclick="promptPasswordAndRedirect(${doctor.id});">
 									Edit</button>
 
 								<button
-									class="bg-red-500 text-white px-3 py-1 rounded hover:bg-yellow-400 transition"
+									class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-600 transition"
 									onclick="promptPasswordAndDelete(${doctor.id});">
 									Delete</button>
 
@@ -80,6 +82,8 @@
 		
 	</div>
 </main>
+
+
 
 <script>
 function promptPasswordAndRedirect(doctorId) {
@@ -153,3 +157,5 @@ document.getElementById("searchInput").addEventListener("input" , filterTable);
 		}
 	}
 </script>
+
+<%@ include file="./partials/footer.jsp"%>

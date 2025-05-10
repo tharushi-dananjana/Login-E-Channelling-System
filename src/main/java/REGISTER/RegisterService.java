@@ -1,10 +1,9 @@
 package REGISTER;
-import com.echannelling.model.Doctor;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import com.echannelling.model.Doctor;
 import com.echannelling.util.DBConnection;
 
 public class RegisterService {

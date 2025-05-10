@@ -54,9 +54,7 @@ public class DoctorServlet extends HttpServlet {
 	            return fileName;
 	        }
 	        return null;
-	    }
-	    
-	   
+	    }	   
 
 	    @Override
 	    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

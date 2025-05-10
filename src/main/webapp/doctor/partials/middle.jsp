@@ -45,7 +45,7 @@
 					</div>
 					
 					<button
-						class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+						class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-600"
 						onclick="window.location.href='doctor?action=logout';">Logout
 					</button>
 				</div>

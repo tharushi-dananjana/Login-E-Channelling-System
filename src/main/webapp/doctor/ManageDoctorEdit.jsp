@@ -8,7 +8,7 @@
 <!-- Form Container -->
 <main class="flex-grow flex justify-center items-start p-8">
 	<div class="bg-white p-6 rounded shadow-md w-full max-w-xl">
-		<h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">Edit New Record</h2>
+		<h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">Doctor Profile</h2>
 		<form action="doctor" method="POST" class="space-y-6" enctype="multipart/form-data" onsubmit="return validateForm(event)">
 			<!-- Hidden Inputs for Action and Doctor ID -->
         	<input type="hidden" name="action" value="update">
